@@ -10,14 +10,14 @@
     html, body { margin:0; width:100%; height:100%; overflow:hidden; background:transparent; font-family:Arial,sans-serif; }
     a-scene { position:fixed !important; inset:0; }
     #ui { position:fixed; inset:0; z-index:10; pointer-events:none; }
-    .topbar { position:absolute; top:48px; left:12px; right:12px; display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
-    .pill, .tipbox { background:rgba(255,255,255,.90); color:#222; border-radius:999px; padding:6px 12px; font-size:13px; box-shadow:0 6px 18px rgba(0,0,0,.18); text-align:left; }
+    .topbar { position:absolute; top:4px; left:12px; right:12px; display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
+    .pill, .tipbox { background:rgba(255,255,255,.90); color:#222; border-radius:999px; padding:8px 14px; font-size:14px; box-shadow:0 6px 18px rgba(0,0,0,.18); }
     .controls { display:flex; gap:8px; pointer-events:auto; margin-left:auto; }
     button { border:none; border-radius:999px; padding:12px 18px; font-size:15px; font-weight:700; cursor:pointer; box-shadow:0 8px 20px rgba(0,0,0,.2); }
     #startBtn { background:linear-gradient(135deg, #ff79b0, #ffb86c); color:white; }
     #musicBtn { display:none; background:rgba(255,255,255,.92); color:#222; }
-    .bottom { position:absolute; left:50%; bottom:18px; transform:translateX(-50%); max-width:90vw; }
-    .brand-panel { position:fixed; left:12px; bottom:12px; z-index:30; width:175px; height:230px; pointer-events:none; }
+    .bottom { position:absolute; left:12px; right:auto; top:52px; transform:none; max-width:54vw; }
+    .brand-panel { position:fixed; left:12px; bottom:12px; z-index:30; pointer-events:none; }
     .doctor-card { position:absolute; left:0; bottom:0; width:170px; height:220px; display:flex; align-items:flex-end; justify-content:center; overflow:visible; }
     .doctor-card img { width:100%; height:100%; object-fit:contain; filter:drop-shadow(0 10px 18px rgba(0,0,0,.22)); }
     .brand-box { position:absolute; left:52px; bottom:18px; z-index:2; background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(249,251,255,.96)); border:2px solid rgba(176, 154, 122, .48); border-radius:14px; box-shadow:0 10px 20px rgba(0,0,0,.16); padding:7px 9px; display:flex; align-items:center; gap:7px; width:106px; }
@@ -32,8 +32,8 @@
     <div class="topbar">
       <div class="pill" style="max-width:34vw;">可愛刷牙 AR</div>
       <div class="controls">
-        <button id="musicBtn" style="display:none;">音樂：開</button>
-        <button id="startBtn" style="background:linear-gradient(135deg, #ff79b0, #ffb86c); color:white; font-size:13px; padding:10px 16px;">開始刷牙</button>
+        <button id="musicBtn">音樂：開</button>
+        <button id="startBtn">開始刷牙</button>
       </div>
     </div>
     <div class="bottom">
@@ -55,55 +55,15 @@
 
   <a-scene id="scene" mindar-face="autoStart: false; uiLoading: false; uiError: false; uiScanning: false;" embedded color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
     <a-assets>
-      <img id="toothbrushSvg" src="data:image/svg+xml;utf8,
-      <svg xmlns='http://www.w3.org/2000/svg' width='420' height='120' viewBox='0 0 420 120'>
-        <defs>
-          <linearGradient id='g1' x1='0' x2='1'>
-            <stop offset='0%' stop-color='%2360a5fa'/>
-            <stop offset='100%' stop-color='%23a78bfa'/>
-          </linearGradient>
-        </defs>
-        <rect x='20' y='48' rx='18' ry='18' width='250' height='26' fill='url(%23g1)'/>
-        <rect x='240' y='36' rx='12' ry='12' width='92' height='50' fill='white' stroke='%23d1d5db' stroke-width='4'/>
-        <rect x='252' y='18' width='12' height='28' rx='6' fill='%2334d399'/>
-        <rect x='270' y='12' width='12' height='34' rx='6' fill='%23f472b6'/>
-        <rect x='288' y='15' width='12' height='31' rx='6' fill='%23fbbf24'/>
-        <rect x='306' y='18' width='12' height='28' rx='6' fill='%2360a5fa'/>
-        <circle cx='86' cy='61' r='10' fill='white' opacity='0.75'/>
-      </svg>">
-      <img id="bunnySvg" src="data:image/svg+xml;utf8,
-      <svg xmlns='http://www.w3.org/2000/svg' width='180' height='220' viewBox='0 0 180 220'>
-        <ellipse cx='60' cy='40' rx='18' ry='36' fill='%23ffd1e8'/>
-        <ellipse cx='120' cy='40' rx='18' ry='36' fill='%23ffd1e8'/>
-        <ellipse cx='60' cy='40' rx='8' ry='24' fill='white'/>
-        <ellipse cx='120' cy='40' rx='8' ry='24' fill='white'/>
-        <circle cx='90' cy='110' r='58' fill='white'/>
-        <circle cx='70' cy='103' r='6' fill='%23333'/>
-        <circle cx='110' cy='103' r='6' fill='%23333'/>
-        <ellipse cx='90' cy='122' rx='9' ry='7' fill='%23ff92b0'/>
-        <circle cx='55' cy='125' r='10' fill='%23ffd1e8'/>
-        <circle cx='125' cy='125' r='10' fill='%23ffd1e8'/>
-        <path d='M78 136 Q90 146 102 136' stroke='%23333' stroke-width='4' fill='none' stroke-linecap='round'/>
-      </svg>">
-      <img id="bearSvg" src="data:image/svg+xml;utf8,
-      <svg xmlns='http://www.w3.org/2000/svg' width='180' height='220' viewBox='0 0 180 220'>
-        <circle cx='50' cy='56' r='24' fill='%23c084fc'/>
-        <circle cx='130' cy='56' r='24' fill='%23c084fc'/>
-        <circle cx='90' cy='112' r='64' fill='%23d8b4fe'/>
-        <circle cx='68' cy='105' r='6' fill='%23333'/>
-        <circle cx='112' cy='105' r='6' fill='%23333'/>
-        <ellipse cx='90' cy='126' rx='18' ry='14' fill='%23f5d0fe'/>
-        <ellipse cx='90' cy='121' rx='7' ry='5' fill='%23333'/>
-        <path d='M78 138 Q90 148 102 138' stroke='%23333' stroke-width='4' fill='none' stroke-linecap='round'/>
-        <circle cx='48' cy='134' r='10' fill='%23f9a8d4'/>
-        <circle cx='132' cy='134' r='10' fill='%23f9a8d4'/>
-      </svg>">
+      <img id="toothbrushSvg" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='120' viewBox='0 0 420 120'><defs><linearGradient id='g1' x1='0' x2='1'><stop offset='0%' stop-color='%2360a5fa'/><stop offset='100%' stop-color='%23a78bfa'/></linearGradient></defs><rect x='20' y='48' rx='18' ry='18' width='250' height='26' fill='url(%23g1)'/><rect x='240' y='36' rx='12' ry='12' width='92' height='50' fill='white' stroke='%23d1d5db' stroke-width='4'/><rect x='252' y='18' width='12' height='28' rx='6' fill='%2334d399'/><rect x='270' y='12' width='12' height='34' rx='6' fill='%23f472b6'/><rect x='288' y='15' width='12' height='31' rx='6' fill='%23fbbf24'/><rect x='306' y='18' width='12' height='28' rx='6' fill='%2360a5fa'/><circle cx='86' cy='61' r='10' fill='white' opacity='0.75'/></svg>">
+      <img id="bunnySvg" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='220' viewBox='0 0 180 220'><ellipse cx='60' cy='40' rx='18' ry='36' fill='%23ffd1e8'/><ellipse cx='120' cy='40' rx='18' ry='36' fill='%23ffd1e8'/><ellipse cx='60' cy='40' rx='8' ry='24' fill='white'/><ellipse cx='120' cy='40' rx='8' ry='24' fill='white'/><circle cx='90' cy='110' r='58' fill='white'/><circle cx='70' cy='103' r='6' fill='%23333'/><circle cx='110' cy='103' r='6' fill='%23333'/><ellipse cx='90' cy='122' rx='9' ry='7' fill='%23ff92b0'/><circle cx='55' cy='125' r='10' fill='%23ffd1e8'/><circle cx='125' cy='125' r='10' fill='%23ffd1e8'/><path d='M78 136 Q90 146 102 136' stroke='%23333' stroke-width='4' fill='none' stroke-linecap='round'/></svg>">
+      <img id="bearSvg" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='220' viewBox='0 0 180 220'><circle cx='50' cy='56' r='24' fill='%23c084fc'/><circle cx='130' cy='56' r='24' fill='%23c084fc'/><circle cx='90' cy='112' r='64' fill='%23d8b4fe'/><circle cx='68' cy='105' r='6' fill='%23333'/><circle cx='112' cy='105' r='6' fill='%23333'/><ellipse cx='90' cy='126' rx='18' ry='14' fill='%23f5d0fe'/><ellipse cx='90' cy='121' rx='7' ry='5' fill='%23333'/><path d='M78 138 Q90 148 102 138' stroke='%23333' stroke-width='4' fill='none' stroke-linecap='round'/><circle cx='48' cy='134' r='10' fill='%23f9a8d4'/><circle cx='132' cy='134' r='10' fill='%23f9a8d4'/></svg>">
     </a-assets>
 
     <a-camera active="false" position="0 0 0"></a-camera>
 
     <a-entity mindar-face-target="anchorIndex: 168">
-      <a-text id="timerText" value="刷牙倒數 30" align="center" color="#10b981" scale="0.75 0.75 0.75" position="0 0.46 0"></a-text>
+      <a-text id="timerText" value="刷牙倒數 30" align="center" color="#10b981" scale="0.75 0.75 0.75" position="0 0.58 0"></a-text>
     </a-entity>
 
     <a-entity mindar-face-target="anchorIndex: 13">
@@ -122,7 +82,7 @@
     </a-entity>
 
     <a-entity mindar-face-target="anchorIndex: 1">
-      <a-text id="tipText" value="左右輕輕移動，模擬刷牙" align="center" color="#ffffff" scale="0.38 0.38 0.38" position="0 -0.56 0"></a-text>
+      <a-text id="tipText" value="左右輕輕移動刷牙" align="center" color="#ffffff" scale="0.38 0.38 0.38" position="0 -0.56 0"></a-text>
     </a-entity>
   </a-scene>
 
@@ -131,8 +91,6 @@
       const sceneEl = document.querySelector('#scene');
       const startBtn = document.querySelector('#startBtn');
       const musicBtn = document.querySelector('#musicBtn');
-      
-      const bgm = document.querySelector('#bgm');
       const msg = document.querySelector('#msg');
       const timerText = document.querySelector('#timerText');
       const tipText = document.querySelector('#tipText');
@@ -152,22 +110,27 @@
         clearInterval(countdown);
         seconds = 30;
         timerText.setAttribute('value', '刷牙倒數 30');
-        tipText.setAttribute('value', '左右輕輕移動刷上排牙齒');
+        tipText.setAttribute('value', '左右輕輕移動刷牙');
         countdown = setInterval(() => {
           seconds -= 1;
           if (seconds >= 0) timerText.setAttribute('value', '刷牙倒數 ' + seconds);
-          if (seconds === 28) tipText.setAttribute('value', '準備刷牙'); if (seconds === 25) tipText.setAttribute('value', '刷牙開始'); if (seconds === 20) tipText.setAttribute('value', '慢慢刷上排牙齒'); if (seconds === 15) tipText.setAttribute('value', '刷完上排換下排'); if (seconds === 10) tipText.setAttribute('value', '慢慢刷下排牙齒'); if (seconds === 5) tipText.setAttribute('value', '最後衝刺！');
-          if (seconds === 10) tipText.setAttribute('value', '慢慢刷下排牙齒');
+          switch(seconds) {
+            case 28: tipText.setAttribute('value', '準備刷牙'); break;
+            case 25: tipText.setAttribute('value', '刷牙開始'); break;
+            case 20: tipText.setAttribute('value', '慢慢刷上排牙齒'); break;
+            case 15: tipText.setAttribute('value', '刷完上排換下排'); break;
+            case 10: tipText.setAttribute('value', '慢慢刷下排牙齒'); break;
+            case 5: tipText.setAttribute('value', '最後衝刺！'); break;
+          }
           if (seconds <= 0) {
             clearInterval(countdown);
-            timerText.setAttribute('value', '刷牙完成 ✓');
-            tipText.setAttribute('value', '你今日刷得好叻！');
+            timerText.setAttribute('value', '刷牙完成 ✓ 你今日刷得好叻！');
             msg.textContent = '完成啦！';
           }
         }, 1000);
       }
 
-      async function playMusic() { try { bgm.muted = false; bgm.volume = 1; await bgm.play(); return true; } catch (e) { console.log(e); return false; } }
+      async function playMusic() { try { bgm.muted = false; bgm.volume = 0.5; await bgm.play(); return true; } catch (e) { console.log(e); return false; } }
       async function unlockAudio() {
         try {
           bgm.muted = true;
@@ -176,12 +139,12 @@
           bgm.pause();
           bgm.currentTime = 0;
           bgm.muted = false;
-          bgm.volume = 1;
+          bgm.volume = 0.5;
           return true;
         } catch (e) {
           console.log(e);
           bgm.muted = false;
-          bgm.volume = 1;
+          bgm.volume = 0.5;
           return false;
         }
       }
@@ -194,13 +157,10 @@
         musicBtn.style.display = 'inline-block';
         msg.textContent = '正在啟動 AR，請允許相機。';
         try {
-          await unlockAudio(); await playMusic();
+          await unlockAudio();
           await arSystem.start();
           startCountdown();
-          if (musicOn) {
-            const ok = await playMusic();
-            if (!ok) msg.textContent = 'AR 已啟動，如 iPhone 無聲，請再按一次音樂：開。';
-          }
+          if (musicOn) await playMusic();
         } catch (err) {
           console.log(err);
           msg.textContent = '開不到相機，請檢查瀏覽器權限。';
@@ -214,8 +174,6 @@
         if (musicOn) { musicBtn.textContent = '音樂：開'; await playMusic(); }
         else { musicBtn.textContent = '音樂：關'; bgm.pause(); }
       });
-
-      
     });
   </script>
 </body>
