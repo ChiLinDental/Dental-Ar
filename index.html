@@ -10,8 +10,8 @@
     html, body { margin:0; width:100%; height:100%; overflow:hidden; background:transparent; font-family:Arial,sans-serif; }
     a-scene { position:fixed !important; inset:0; }
     #ui { position:fixed; inset:0; z-index:10; pointer-events:none; }
-    .topbar { position:absolute; top:12px; left:12px; right:12px; display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
-    .pill, .tipbox { background:rgba(255,255,255,.90); color:#222; border-radius:999px; padding:6px 12px; font-size:13px; box-shadow:0 6px 18px rgba(0,0,0,.18); text-align:right; }
+    .topbar { position:absolute; top:48px; left:12px; right:12px; display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
+    .pill, .tipbox { background:rgba(255,255,255,.90); color:#222; border-radius:999px; padding:6px 12px; font-size:13px; box-shadow:0 6px 18px rgba(0,0,0,.18); text-align:left; }
     .controls { display:flex; gap:8px; pointer-events:auto; margin-left:auto; }
     button { border:none; border-radius:999px; padding:12px 18px; font-size:15px; font-weight:700; cursor:pointer; box-shadow:0 8px 20px rgba(0,0,0,.2); }
     #startBtn { background:linear-gradient(135deg, #ff79b0, #ffb86c); color:white; }
@@ -32,13 +32,12 @@
     <div class="topbar">
       <div class="pill" style="max-width:34vw;">可愛刷牙 AR</div>
       <div class="controls">
-        <button id="musicBtn" style="background:linear-gradient(135deg, #4ade80, #22c55e); color:white; font-size:13px; padding:10px 16px;">音樂：開</button>
-        <button id="testMusicBtn" style="background:linear-gradient(135deg, #3b82f6, #1d4ed8); color:white; font-size:13px; padding:10px 16px;">試播音樂</button>
+        <button id="musicBtn" style="display:none;">音樂：開</button>
         <button id="startBtn" style="background:linear-gradient(135deg, #ff79b0, #ffb86c); color:white; font-size:13px; padding:10px 16px;">開始刷牙</button>
       </div>
     </div>
     <div class="bottom">
-      <div class="tipbox" id="msg">按開始後允許相機，再把嘴部對準牙刷位置。</div>
+      <div class="tipbox" id="msg">按開始後允許相機，嘴部對準牙刷，左右輕刷 30 秒完成！</div>
     </div>
   </div>
 
@@ -52,7 +51,7 @@
     </div>
   </div>
 
-  <audio id="bgm" loop preload="auto" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=children-happy-upbeat-112196.mp3"></audio>
+  <audio id="bgm" loop preload="auto" src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_0a5d5d3c5d.mp3?filename=happy-children-110304.mp3"></audio>
 
   <a-scene id="scene" mindar-face="autoStart: false; uiLoading: false; uiError: false; uiScanning: false;" embedded color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
     <a-assets>
@@ -132,7 +131,7 @@
       const sceneEl = document.querySelector('#scene');
       const startBtn = document.querySelector('#startBtn');
       const musicBtn = document.querySelector('#musicBtn');
-      const testMusicBtn = document.querySelector('#testMusicBtn');
+      
       const bgm = document.querySelector('#bgm');
       const msg = document.querySelector('#msg');
       const timerText = document.querySelector('#timerText');
@@ -153,16 +152,16 @@
         clearInterval(countdown);
         seconds = 30;
         timerText.setAttribute('value', '刷牙倒數 30');
-        tipText.setAttribute('value', '左右輕輕移動，模擬刷牙');
+        tipText.setAttribute('value', '左右輕輕移動刷上排牙齒');
         countdown = setInterval(() => {
           seconds -= 1;
           if (seconds >= 0) timerText.setAttribute('value', '刷牙倒數 ' + seconds);
-          if (seconds === 20) tipText.setAttribute('value', '刷上排牙齒');
-          if (seconds === 10) tipText.setAttribute('value', '刷下排牙齒');
+          if (seconds === 28) tipText.setAttribute('value', '準備刷牙'); if (seconds === 25) tipText.setAttribute('value', '刷牙開始'); if (seconds === 20) tipText.setAttribute('value', '慢慢刷上排牙齒'); if (seconds === 15) tipText.setAttribute('value', '刷完上排換下排'); if (seconds === 10) tipText.setAttribute('value', '慢慢刷下排牙齒'); if (seconds === 5) tipText.setAttribute('value', '最後衝刺！');
+          if (seconds === 10) tipText.setAttribute('value', '慢慢刷下排牙齒');
           if (seconds <= 0) {
             clearInterval(countdown);
-            timerText.setAttribute('value', '刷牙完成');
-            tipText.setAttribute('value', '你今日刷得好叻');
+            timerText.setAttribute('value', '刷牙完成 ✓');
+            tipText.setAttribute('value', '你今日刷得好叻！');
             msg.textContent = '完成啦！';
           }
         }, 1000);
@@ -195,7 +194,7 @@
         musicBtn.style.display = 'inline-block';
         msg.textContent = '正在啟動 AR，請允許相機。';
         try {
-          await unlockAudio();
+          await unlockAudio(); await playMusic();
           await arSystem.start();
           startCountdown();
           if (musicOn) {
@@ -216,12 +215,7 @@
         else { musicBtn.textContent = '音樂：關'; bgm.pause(); }
       });
 
-      testMusicBtn.addEventListener('click', async () => {
-        musicOn = true;
-        musicBtn.textContent = '音樂：開';
-        const ok = await playMusic();
-        msg.textContent = ok ? '音樂已試播' : '音樂試播失敗';
-      });
+      
     });
   </script>
 </body>
