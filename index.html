@@ -10,9 +10,9 @@
     html, body { margin:0; width:100%; height:100%; overflow:hidden; background:transparent; font-family:Arial,sans-serif; }
     a-scene { position:fixed !important; inset:0; }
     #ui { position:fixed; inset:0; z-index:10; pointer-events:none; }
-    .topbar { position:absolute; top:12px; left:12px; right:12px; display:flex; justify-content:space-between; align-items:center; gap:8px; }
-    .pill, .tipbox { background:rgba(255,255,255,.90); color:#222; border-radius:999px; padding:8px 14px; font-size:14px; box-shadow:0 6px 18px rgba(0,0,0,.18); }
-    .controls { display:flex; gap:8px; pointer-events:auto; }
+    .topbar { position:absolute; top:12px; left:12px; right:12px; display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
+    .pill, .tipbox { background:rgba(255,255,255,.90); color:#222; border-radius:999px; padding:8px 14px; font-size:14px; box-shadow:0 6px 18px rgba(0,0,0,.18); text-align:right; }
+    .controls { display:flex; gap:8px; pointer-events:auto; margin-left:auto; }
     button { border:none; border-radius:999px; padding:12px 18px; font-size:15px; font-weight:700; cursor:pointer; box-shadow:0 8px 20px rgba(0,0,0,.2); }
     #startBtn { background:linear-gradient(135deg, #ff79b0, #ffb86c); color:white; }
     #musicBtn { display:none; background:rgba(255,255,255,.92); color:#222; }
@@ -30,9 +30,10 @@
 <body>
   <div id="ui">
     <div class="topbar">
-      <div class="pill">可愛刷牙 AR</div>
+      <div class="pill" style="max-width:34vw;">可愛刷牙 AR</div>
       <div class="controls">
         <button id="musicBtn">音樂：開</button>
+        <button id="testMusicBtn">試播音樂</button>
         <button id="startBtn">開始刷牙</button>
       </div>
     </div>
@@ -103,22 +104,22 @@
     <a-camera active="false" position="0 0 0"></a-camera>
 
     <a-entity mindar-face-target="anchorIndex: 168">
-      <a-text id="timerText" value="刷牙倒數 30" align="center" color="#10b981" scale="0.75 0.75 0.75" position="0 0.58 0"></a-text>
+      <a-text id="timerText" value="刷牙倒數 30" align="center" color="#10b981" scale="0.75 0.75 0.75" position="0 0.46 0"></a-text>
     </a-entity>
 
     <a-entity mindar-face-target="anchorIndex: 13">
-      <a-image id="toothbrush" src="#toothbrushSvg" material="shader: flat; transparent: true; alphaTest: 0.01; depthTest: false;" render-order="999" position="-0.14 0.09 0.03" width="1.08" height="0.32" rotation="0 0 -8" animation="property: position; dir: alternate; dur: 420; loop: true; to: -0.02 0.09 0.03; easing: easeInOutSine"></a-image>
-      <a-sphere radius="0.036" color="#ffffff" opacity="0.75" material="shader: flat; transparent: true; depthTest: false;" render-order="998" position="0.22 0.12 0.03" animation="property: position; dir: alternate; dur: 900; loop: true; to: 0.34 0.26 0.06; easing: easeOutQuad"></a-sphere>
-      <a-sphere radius="0.028" color="#d9f3ff" opacity="0.70" material="shader: flat; transparent: true; depthTest: false;" render-order="998" position="0.14 0.08 0.03" animation="property: position; dir: alternate; dur: 1100; loop: true; to: 0.25 0.20 0.05; easing: easeOutQuad"></a-sphere>
-      <a-sphere radius="0.020" color="#ffffff" opacity="0.68" material="shader: flat; transparent: true; depthTest: false;" render-order="998" position="0.08 0.05 0.03" animation="property: position; dir: alternate; dur: 800; loop: true; to: 0.18 0.16 0.05; easing: easeOutQuad"></a-sphere>
+      <a-image id="toothbrush" src="#toothbrushSvg" material="shader: flat; transparent: true; alphaTest: 0.01; depthTest: false;" render-order="999" position="-0.14 -0.03 0.03" width="1.08" height="0.32" rotation="0 0 -8" animation="property: position; dir: alternate; dur: 420; loop: true; to: -0.02 -0.03 0.03; easing: easeInOutSine"></a-image>
+      <a-sphere radius="0.036" color="#ffffff" opacity="0.75" material="shader: flat; transparent: true; depthTest: false;" render-order="998" position="0.22 0.00 0.03" animation="property: position; dir: alternate; dur: 900; loop: true; to: 0.34 0.14 0.06; easing: easeOutQuad"></a-sphere>
+      <a-sphere radius="0.028" color="#d9f3ff" opacity="0.70" material="shader: flat; transparent: true; depthTest: false;" render-order="998" position="0.14 -0.04 0.03" animation="property: position; dir: alternate; dur: 1100; loop: true; to: 0.25 0.08 0.05; easing: easeOutQuad"></a-sphere>
+      <a-sphere radius="0.020" color="#ffffff" opacity="0.68" material="shader: flat; transparent: true; depthTest: false;" render-order="998" position="0.08 -0.07 0.03" animation="property: position; dir: alternate; dur: 800; loop: true; to: 0.18 0.04 0.05; easing: easeOutQuad"></a-sphere>
     </a-entity>
 
     <a-entity mindar-face-target="anchorIndex: 234">
-      <a-image src="#bunnySvg" material="shader: flat; transparent: true;" position="-0.22 0.04 0.02" width="0.44" height="0.56" animation="property: position; dir: alternate; dur: 1200; loop: true; to: -0.22 0.12 0.02; easing: easeInOutSine"></a-image>
+      <a-image src="#bunnySvg" material="shader: flat; transparent: true;" position="-0.22 -0.08 0.02" width="0.44" height="0.56" animation="property: position; dir: alternate; dur: 1200; loop: true; to: -0.22 0.00 0.02; easing: easeInOutSine"></a-image>
     </a-entity>
 
     <a-entity mindar-face-target="anchorIndex: 454">
-      <a-image src="#bearSvg" material="shader: flat; transparent: true;" position="0.22 0.04 0.02" width="0.44" height="0.56" animation="property: position; dir: alternate; dur: 1350; loop: true; to: 0.22 0.12 0.02; easing: easeInOutSine"></a-image>
+      <a-image src="#bearSvg" material="shader: flat; transparent: true;" position="0.22 -0.08 0.02" width="0.44" height="0.56" animation="property: position; dir: alternate; dur: 1350; loop: true; to: 0.22 0.00 0.02; easing: easeInOutSine"></a-image>
     </a-entity>
 
     <a-entity mindar-face-target="anchorIndex: 1">
@@ -131,6 +132,7 @@
       const sceneEl = document.querySelector('#scene');
       const startBtn = document.querySelector('#startBtn');
       const musicBtn = document.querySelector('#musicBtn');
+      const testMusicBtn = document.querySelector('#testMusicBtn');
       const bgm = document.querySelector('#bgm');
       const msg = document.querySelector('#msg');
       const timerText = document.querySelector('#timerText');
@@ -166,7 +168,24 @@
         }, 1000);
       }
 
-      async function playMusic() { try { await bgm.play(); } catch (e) { console.log(e); } }
+      async function playMusic() { try { bgm.muted = false; bgm.volume = 1; await bgm.play(); return true; } catch (e) { console.log(e); return false; } }
+      async function unlockAudio() {
+        try {
+          bgm.muted = true;
+          bgm.volume = 0;
+          await bgm.play();
+          bgm.pause();
+          bgm.currentTime = 0;
+          bgm.muted = false;
+          bgm.volume = 1;
+          return true;
+        } catch (e) {
+          console.log(e);
+          bgm.muted = false;
+          bgm.volume = 1;
+          return false;
+        }
+      }
 
       startBtn.addEventListener('click', async () => {
         if (!arSystem) { msg.textContent = '系統未完成載入，請等一等再按。'; return; }
@@ -176,9 +195,13 @@
         musicBtn.style.display = 'inline-block';
         msg.textContent = '正在啟動 AR，請允許相機。';
         try {
+          await unlockAudio();
           await arSystem.start();
           startCountdown();
-          if (musicOn) await playMusic();
+          if (musicOn) {
+            const ok = await playMusic();
+            if (!ok) msg.textContent = 'AR 已啟動，如 iPhone 無聲，請再按一次音樂：開。';
+          }
         } catch (err) {
           console.log(err);
           msg.textContent = '開不到相機，請檢查瀏覽器權限。';
@@ -191,6 +214,13 @@
         musicOn = !musicOn;
         if (musicOn) { musicBtn.textContent = '音樂：開'; await playMusic(); }
         else { musicBtn.textContent = '音樂：關'; bgm.pause(); }
+      });
+
+      testMusicBtn.addEventListener('click', async () => {
+        musicOn = true;
+        musicBtn.textContent = '音樂：開';
+        const ok = await playMusic();
+        msg.textContent = ok ? '音樂已試播' : '音樂試播失敗';
       });
     });
   </script>
